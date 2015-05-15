@@ -1,0 +1,121 @@
+//Grid Framework
+$direction: "right";   // Columns margin direction
+
+// Calculation function for columns and gutter
+
+@function gutter($cols: $columns, $gutterNum:$gutter) {
+
+  $container-width: $cols * $column-width + ($cols - 1) * $gutter;
+
+  @return percentage($gutterNum / $container-width);
+}
+
+@function columns($col, $cols: $columns) {
+
+  $width: $max-width + ($gutter * ($columns - 1));
+  $grid: (($max-width/$columns) * $col) + ($gutter * ($col - 1));
+
+  @return ($grid / $width) * 100%;
+  //@return percentage($width / $container-width);
+}
+
+// @function offset-columns($columns) {
+//   $margin: $columns * $column-width + $columns * $gutter-width;
+//   @return $margin;
+// }
+
+
+// Grid Mixins
+
+@mixin row(){
+  @include clearfix;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  display: block;
+}//row
+
+// @mixin offset($from-direction, $columns) {
+//   @if $from-direction == left {
+//     float: left;
+//     margin-left: offset-columns($columns);
+//   }
+//   @if $from-direction == right {
+//     float: right;
+//     margin-right: offset-columns($columns);
+//   }
+// }
+
+@mixin col($col){
+
+  @if($col > 0){
+    width: columns($col);
+  }
+
+  margin-#{$direction}: gutter();
+  float: left;
+  margin-bottom: gutter();
+
+
+  // @if($noGutter == true){
+  //    $gutter: 0px !global;
+  // }@else{
+  //   $gutter: $gutter-store !global;
+  // }
+
+  //$width: $max-width + ($gutter * ($columns - 1));
+  //$grid: (($max-width/$columns) * $col) + ($gutter * ($col - 1));
+
+  // Convert Pixels to Percentages
+  //$grid: ($grid / $width) * 100%;
+
+  // Convert Gutter Pixels to Percentages
+  //$gutter-percentage: ($gutter / $width) * 100%;
+
+  // float: left;
+  // width: $grid;
+  // margin-#{$direction}: $gutter;
+  // margin-bottom: $gutter;
+
+  // &:last-child{
+  //    margin-#{$direction}: 0px;
+  //   // clear: left;
+  // }
+
+}//col
+
+
+@mixin last {
+  margin-#{$direction}: 0;
+  float: $direction;
+}
+
+
+
+
+
+// @function offset-columns($columns) {
+//   $margin: $columns * $column-width + $columns * $gutter-width;
+//   @return $margin;
+// }
+// @mixin offset($from-direction, $columns) {
+//   @if $from-direction == left {
+//     float: left;
+//     margin-left: offset-columns($columns);
+//   }
+//   @if $from-direction == right {
+//     float: right;
+//     margin-right: offset-columns($columns);
+//   }
+// }
+
+
+
+
+
+
+
+
+
+

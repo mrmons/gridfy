@@ -1,0 +1,81 @@
+$mqMobile: 320px;
+$mqTabletSmall: 480px;
+$mqTabletLarge: 768px;
+$mqScreenSmall: 1024px;
+
+
+// Predefined Break-points
+
+$mqOnlyScreen: "only screen";
+
+$mqDesktop:" and (min-width: #{$mqScreenSmall})";
+
+$mqDesktopTablet: " and (min-width: #{$mqTabletSmall}) ";
+
+$mqTablet: " and (min-width: #{$mqTabletLarge}) and (max-width: #{$mqScreenSmall})";
+$mqMobile: " and (min-width: #{$mqMobile}) and (max-width: #{$mqTabletSmall})";
+
+$mqPortrait: " and (orientation: portrait) ";
+$mqLandscape: " and (orientation: landscape) ";
+
+
+@mixin media($device:"desktop", $handheld:"default"){
+
+  @if($device == "desktop"){
+      @media #{$mqOnlyScreen + $mqDesktop} { 
+        @content; 
+      }
+  }@else if($device == "desktopTablet" or "tabletDesktop"){
+
+    @if($handheld == "potrait"){
+      @media #{$mqOnlyScreen + $mqDesktopTablet + $mqPortrait}{ 
+        @content; 
+      }
+    }@else if($handheld == "landscape"){
+      @media #{$mqOnlyScreen + $mqDesktopTablet + $mqLandscape}{ 
+        @content; 
+      }
+    }@else if($handheld == "default"){
+        @media #{$mqOnlyScreen + $mqDesktopTablet}{ 
+          @content; 
+      } 
+    }//check handheld desktop, desktop + tablet
+  }//device desktop, deskop+tablet
+
+
+
+  @if($device == "tablet"){
+
+    @if($handheld == "landscape"){
+      @media #{$mqOnlyScreen + $mqTablet + $mqLandscape}{ 
+        @content; 
+      }
+    }@else if($handheld == "potrait"){
+        @media #{$mqOnlyScreen + $mqTablet + $mqPortrait}{ 
+          @content; 
+        }
+    }@else if($handheld == "default"){
+       @media #{$mqOnlyScreen + $mqTablet}{ 
+        @content; 
+      }
+    }//check handheld
+  }//check device tablet
+
+  @if($device == "mobile"){
+    @if($handheld == "landscape"){
+      @media #{$mqOnlyScreen + $mqMobile + $mqLandscape}{ 
+        @content; 
+      }
+    }@else if($handheld == "potrait"){
+      @media #{$mqOnlyScreen + $mqMobile + $mqPortrait}{ 
+        @content; 
+      }
+    }@else if($handheld == "default"){
+      @media #{$mqOnlyScreen + $mqMobile}{ 
+        @content; 
+      }
+    }//check handheld
+  }//mobile
+
+}//media
+
